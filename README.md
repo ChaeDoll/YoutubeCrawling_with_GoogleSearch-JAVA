@@ -78,4 +78,52 @@ public class Crawling {
 
 
 - Spring을 통해 Frontend와 연결하게 된다면 위 코드를 활용하여 서비스를 만들고, Getmapping 혹은 Postmapping을 통해 Frontend에게 api 요청을 받을 때 해당 서비스를 실행시켜준 뒤, Response Data로 원하는 결과를 return하여 이를 구현할 수 있습니다.
+```
+// Backend 코드
+@RestController
+public class MusicController {
+    private final CrawlingService crawlingService;
+    @Autowired
+    public MusicController(CrawlingService crawlingService) {
+        this.crawlingService = crawlingService;
+    }
+    @PostMapping("/api/music")
+    public ResponseDto getMusicList(@RequestBody RequestMusicDto requestMusicDto) throws IOException {
+        List<Music> musicList = crawlingService.getMusicList(requestMusicDto.getSongList());
+        return new ResponseDto(HttpStatus.OK.value(), "음악 데이터 목록입니다.", musicList);
+    }
+}
+
+@Service
+public class CrawlingService {
+    public List<Music> getMusicList(String songList) throws IOException {
+        List<Music> musicList = new ArrayList<>();
+        List<String> recommendList = List.of(songList.split("\\n"));
+        for (String recommend:recommendList) {
+            Music music = new Music();
+            String encodedKeyword = URLEncoder.encode(recommend, "UTF-8");
+            String crawlingURL = "https://www.google.com/search?q=" + encodedKeyword + "&tbm=vid";
+            Document document = Jsoup.connect(crawlingURL).get();
+            Element url = document.selectFirst("#rso > div:nth-child(1) > div > div > div > div > div > div:nth-child(1) > div.xe8e1b > div > div > span > a");
+            Elements images = document.select("script");
+            for (Element image : images){
+                String imageData = image.data();
+                if (imageData.contains("data:image/jpeg;base64")){
+                    int startIndex = imageData.indexOf("data:image/jpeg;base64");
+                    int endIndex = imageData.indexOf("';var");
+                    if (startIndex != -1) {
+                        String base64Image = imageData.substring(startIndex, endIndex);
+                        music.setImage(base64Image);
+                        break;
+                    }
+                }
+            }
+            music.setTitle(recommend);
+            music.setUrl(url.attr("href"));
+            musicList.add(music);
+        }
+        return musicList;
+    }
+}
+```
   
