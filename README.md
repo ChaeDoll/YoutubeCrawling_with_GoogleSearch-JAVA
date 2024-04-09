@@ -76,7 +76,7 @@ public class Crawling {
 
 - Spring을 통해 Frontend와 연결하게 된다면 위 코드를 활용하여 서비스를 만들고, Getmapping 혹은 Postmapping을 통해 Frontend에게 api 요청을 받을 때 해당 서비스를 실행시켜준 뒤, Response Data로 원하는 결과를 return하여 이를 구현할 수 있습니다.
   
-### 🔽 예시
+### 🔽 예시 (Backend 및 Frontend)
 ![image](https://github.com/ChaeDoll/Java-Youtube_Crawling_with_Google_search/assets/108540812/7e0e655a-1d93-4c89-89ad-7295d933c0dc)  
 
 ```
