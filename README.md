@@ -71,7 +71,7 @@ public class Crawling {
   그리하여 script 태그를 선택한 뒤, script에 적힌 글을 먼저 image.data()를 통해 문자열로 가져왔습니다.
   이후 Youtube 썸네일 이미지의 형태인 "data:image/jpeg;base64"를 포함하는 문자열들 중, "data:image/jpeg;base64"로 시작하고 "';var"이전에 끝나는 문자열을 substring 메소드를 통해 가져왔습니다.
 
-
+### ETC
 - 위 코드는 현재 Repository에 올라가 있는 Java 코드입니다.
 - Spring 환경에서는 Jsoup 라이브러리를 추가해준 뒤 (dependency), 해당 코드를 활용할 수 있습니다.
 - Java 환경에서는 현재 Repository에 올라가 있는 jsoup.jar을 현재 모듈에 직접 import하여 라이브러리를 추가할 수 있습니다.
