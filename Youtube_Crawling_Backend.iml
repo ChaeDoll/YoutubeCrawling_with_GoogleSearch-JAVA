@@ -10,7 +10,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../jsoup-1.17.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/jsoup-1.17.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
