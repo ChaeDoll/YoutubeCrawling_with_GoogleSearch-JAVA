@@ -5,7 +5,7 @@
 ### 🔽 예시
 ![image](https://github.com/ChaeDoll/Java-Youtube_Crawling_with_Google_search/assets/108540812/7e0e655a-1d93-4c89-89ad-7295d933c0dc)
 
-### 코드
+### 🔽 코드
 ```
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -62,3 +62,14 @@ public class Crawling {
 }
 
 ```
+### 설명
+- Java 환경에서 Jsoup 라이브러리를 통해 google 검색결과 창에 검색어를 집어넣어 Crawling합니다.
+- 얻어낸 정적요소에서 document.select 메소드를 통해 원하는 값이 존재하는 selector 값을 입력합니다.
+- h3 태그로 이루어진 Youtube title 에서는 내부에 있는 텍스트 요소를 얻어내야 하기에 title.text()를 통해 값을 얻어왔습니다.
+- a 태그로 이루어진 Youtube link url 에서는 속성에 있는 href의 값을 얻어내야 하기에 url.attr("href")를 통해 값을 얻어왔습니다.
+- img 태그의 경우에 정적요소에서 값을 얻어내면 blurImage(임시 이미지)가 들어가있었기에, script 내부에 존재하는 image값을 가져와야 했습니다.  
+  그리하여 script 태그를 선택한 뒤, script에 적힌 글을 먼저 image.data()를 통해 문자열로 가져왔습니다.
+  이후 Youtube 썸네일 이미지의 형태인 "data:image/jpeg;base64"를 포함하는 문자열들 중, "data:image/jpeg;base64"로 시작하고 "';var"이전에 끝나는 문자열을 substring 메소드를 통해 가져왔습니다.
+
+- 위 코드는 현재 Repository의 
+
