@@ -2,9 +2,6 @@
 > 자바(Java) Jsoup 라이브러리를 통해 구글 검색결과를 크롤링하여 유튜브 정보 가져오기  
 > Using Java Jsoup Library, Youtube Crawling (thumbnail, title, url, etc..) with Google Search
 
-### 🔽 예시
-![image](https://github.com/ChaeDoll/Java-Youtube_Crawling_with_Google_search/assets/108540812/7e0e655a-1d93-4c89-89ad-7295d933c0dc)
-
 ### 🔽 코드
 ```
 import org.jsoup.Jsoup;
@@ -78,6 +75,10 @@ public class Crawling {
 
 
 - Spring을 통해 Frontend와 연결하게 된다면 위 코드를 활용하여 서비스를 만들고, Getmapping 혹은 Postmapping을 통해 Frontend에게 api 요청을 받을 때 해당 서비스를 실행시켜준 뒤, Response Data로 원하는 결과를 return하여 이를 구현할 수 있습니다.
+  
+### 🔽 예시
+![image](https://github.com/ChaeDoll/Java-Youtube_Crawling_with_Google_search/assets/108540812/7e0e655a-1d93-4c89-89ad-7295d933c0dc)  
+
 ```
 // Backend 코드
 @RestController
@@ -126,4 +127,22 @@ public class CrawlingService {
     }
 }
 ```
-  
+```
+//Frontend
+const aiRecommendedList = "AI가 추천해준 노래들 목록";
+const convertMusicToData = (songList) => {
+    const result = axios.post(`${API_URL}/api/music`,{songList:songList},{headers: {'Content-Type': 'application/json'}})
+    .then((res) => {
+        console.log('FrontEnd : Success convert Music to Data');
+        return res.data.data;
+    })
+    .catch((error) => {
+        console.log('FrontEnd : Failed convert Music to Data, Reason :', error);
+    });
+    return result;
+}
+convertMusicToData(aiRecommendedList).then(res=>{
+    if (res) {setDataList(res)}
+})
+```
+
